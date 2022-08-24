@@ -1,4 +1,4 @@
-package com.android.floward.users
+package com.android.floward.users.ui
 
 import android.os.Bundle
 import com.android.floward.R.layout
