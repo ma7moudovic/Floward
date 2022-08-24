@@ -4,16 +4,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    android:fitsSystemWindows="true"
+    tools:context=".users.UsersActivity"
     >
-  <TextView
-      android:layout_width="wrap_content"
+
+  <com.google.android.material.appbar.AppBarLayout
+      android:id="@+id/toolbarContainer"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="Hello World!"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintLeft_toLeftOf="parent"
-      app:layout_constraintRight_toRightOf="parent"
+      app:elevation="0dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      />
+      >
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="@string/users"
+        app:titleCentered="true"
+        app:titleTextColor="@color/secondaryColor"
+        />
+
+  </com.google.android.material.appbar.AppBarLayout>
+
+  <androidx.core.widget.NestedScrollView
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:background="@color/white"
+      android:visibility="visible"
+      app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/toolbarContainer"
+      >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+      <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+          android:id="@+id/layout_swipe_refresh"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:background="@android:color/white"
+          app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+          >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/users_data_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_user"
+            />
+
+      </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+      <include
+          android:id="@+id/users_loading_view"
+          layout="@layout/layout_users_shimmer"
+          android:visibility="visible"
+          />
+    </FrameLayout>
+
+  </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

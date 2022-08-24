@@ -13,6 +13,7 @@ def versions = [
     lifecycle: '2.5.1',
     fragment: '1.2.3',
     material: '1.6.1',
+    swipeRefreshLayout: '1.1.0',
     retrofit: '2.9.0',
     gson: '2.8.6',
     moshi: '1.12.0',
@@ -25,7 +26,7 @@ def versions = [
     shimmer: '0.5.0',
 
     glide: '4.11.0',
-    glideTransformations: '4.3.0',
+    glideTransformations: '4.3.0'
 ]
 
 android {
@@ -41,7 +42,7 @@ android {
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
 
-  buildFeatures{
+  buildFeatures {
     viewBinding true
   }
 
@@ -68,6 +69,7 @@ dependencies {
   implementation "androidx.constraintlayout:constraintlayout:${versions.constraintlayout}"
   implementation "androidx.core:core-ktx:${versions.androidxKtx}"
   implementation "com.google.android.material:material:${versions.material}"
+  implementation "androidx.swiperefreshlayout:swiperefreshlayout:${versions.swipeRefreshLayout}"
 
   implementation "com.squareup.moshi:moshi:${versions.moshi}"
   implementation "com.squareup.moshi:moshi-adapters:${versions.moshi}"
@@ -82,6 +84,8 @@ dependencies {
   implementation "androidx.lifecycle:lifecycle-runtime-ktx:${versions.lifecycle}"
   implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycle}"
   implementation "androidx.lifecycle:lifecycle-livedata-ktx:${versions.lifecycle}"
+
+  implementation "com.facebook.shimmer:shimmer:${versions.shimmer}"
 
   testImplementation 'junit:junit:4.+'
   androidTestImplementation 'androidx.test.ext:junit:1.1.3'
