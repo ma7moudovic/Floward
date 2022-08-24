@@ -1,9 +1,12 @@
 package com.android.floward.arch.network
 
 import com.android.floward.BuildConfig
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -18,16 +21,26 @@ class DefaultApiClient() : ApiClient {
   private val services: ConcurrentHashMap<Class<*>, Any> = ConcurrentHashMap()
 
   private fun buildOkHttpClient(): OkHttpClient {
-    return OkHttpClient.Builder().addInterceptor(timeoutInterceptor())
-      .addInterceptor(loggingInterceptor()).readTimeout(60, TimeUnit.SECONDS)
+    return OkHttpClient.Builder()
+      .addInterceptor(timeoutInterceptor())
+      .addInterceptor(loggingInterceptor())
+      .readTimeout(60, TimeUnit.SECONDS)
       .connectTimeout(60, TimeUnit.SECONDS).build()
   }
 
   private fun buildRetrofit(okHttpClient: OkHttpClient): Retrofit {
-    return Retrofit.Builder().client(okHttpClient)
+    return Retrofit.Builder()
+      .client(okHttpClient)
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-      .addConverterFactory(MoshiConverterFactory.create())
+      .addConverterFactory(getMoshiConverter())
       .baseUrl(Constants.BASE_URL).build()
+  }
+
+  private fun getMoshiConverter(): Converter.Factory {
+    val moshi = Moshi.Builder()
+      .add(KotlinJsonAdapterFactory())
+      .build()
+    return MoshiConverterFactory.create(moshi)
   }
 
   private fun loggingInterceptor(): Interceptor {
