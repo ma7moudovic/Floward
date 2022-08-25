@@ -1,8 +1,11 @@
 package com.android.floward.users.ui.adapter
 
 import androidx.recyclerview.widget.RecyclerView
+import com.android.floward.arch.image.GlideApp
 import com.android.floward.databinding.ItemUserBinding
 import com.android.floward.users.ui.models.UserModel
+import com.bumptech.glide.load.DecodeFormat
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 class UserViewHolder(
   private val binding: ItemUserBinding, private val onUserItemClick: (UserModel) -> Unit
@@ -14,11 +17,13 @@ class UserViewHolder(
     }
 
     binding.tvUserName.text = userModel.name
-    binding.tvPostCount.text = "14 posts"
+    binding.tvPostCount.text = "${userModel.postsCount} posts"
 
-  //        GlideApp.with(itemView.context.applicationContext)
-    //            .load(chapterData.model.chapterLogo)
-    //            .placeholder(R.drawable.ic_chapter_placeholder)
-    //            .into(binding.ivChapterImage)
+    GlideApp.with(itemView.context.applicationContext)
+      .load(userModel.thumbnailUrl)
+      .format(DecodeFormat.PREFER_RGB_565)
+      .diskCacheStrategy(DiskCacheStrategy.ALL)
+      .circleCrop()
+      .into(binding.ivUserImage)
   }
 }

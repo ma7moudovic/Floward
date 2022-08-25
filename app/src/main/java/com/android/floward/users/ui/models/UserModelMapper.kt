@@ -7,18 +7,13 @@ import com.android.floward.users.domain.models.User
  */
 class UserModelMapper {
 
-  fun map(user: User): UserModel {
+  fun map(user: User,postsCount:Int): UserModel {
     return UserModel(
       id = user.id,
       name = user.name,
       imageUrl = user.imageUrl,
-      thumbnailUrl = user.thumbnailUrl
+      thumbnailUrl = user.thumbnailUrl,
+      postsCount = postsCount
     )
-  }
-
-  fun map(users: List<User>): List<UserModel> {
-    return users.map {
-      map(it)
-    }
   }
 }
