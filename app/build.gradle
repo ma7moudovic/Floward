@@ -88,6 +88,10 @@ dependencies {
   implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycle}"
   implementation "androidx.lifecycle:lifecycle-livedata-ktx:${versions.lifecycle}"
 
+  api "com.github.bumptech.glide:glide:${versions.glide}"
+  kapt "com.github.bumptech.glide:compiler:${versions.glide}"
+  api "jp.wasabeef:glide-transformations:${versions.glideTransformations}"
+
   implementation "com.facebook.shimmer:shimmer:${versions.shimmer}"
 
   testImplementation 'junit:junit:4.+'
