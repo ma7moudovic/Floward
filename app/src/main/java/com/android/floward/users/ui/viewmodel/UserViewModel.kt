@@ -4,12 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.floward.users.domain.GetUsersUseCase
+import com.android.floward.users.ui.models.UserModelMapper
 import io.reactivex.disposables.CompositeDisposable
 
 /**
  * Created by shar2awy on 24/08/2022.
  */
-class UserViewModel(val getUsersUseCase: GetUsersUseCase) : ViewModel() {
+class UserViewModel(
+  private val getUsersUseCase: GetUsersUseCase,
+  private val mapper: UserModelMapper
+) : ViewModel() {
 
   private val compositeDisposable: CompositeDisposable by lazy {
     CompositeDisposable()
@@ -22,18 +26,14 @@ class UserViewModel(val getUsersUseCase: GetUsersUseCase) : ViewModel() {
   val viewState: LiveData<UsersViewState> = _viewState
 
   fun getUsers() {
-    compositeDisposable.add(getUsersUseCase()
-      .doOnSubscribe {
-        _viewState.postValue(UsersViewState.Loading)
-      }
-      .subscribe({
-        _viewState.postValue(UsersViewState.Data(it))
-      }, {
-        _viewState.postValue(UsersViewState.Error.UnknownError)
+    compositeDisposable.add(getUsersUseCase().doOnSubscribe {
+      _viewState.postValue(UsersViewState.Loading)
+    }.subscribe({
+      _viewState.postValue(UsersViewState.Data(mapper.map(it)))
+    }, {
+      _viewState.postValue(UsersViewState.Error.UnknownError)
 
-      }
-      )
-    )
+    }))
   }
 
   override fun onCleared() {

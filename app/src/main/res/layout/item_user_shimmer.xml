@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="110dp"
-    android:paddingTop="16dp"
-    android:paddingBottom="16dp"
+    android:layout_marginVertical="8dp"
+    android:layout_marginHorizontal="16dp"
     >
 
   <com.google.android.material.card.MaterialCardView
@@ -31,17 +31,16 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="12dp"
-      android:layout_marginEnd="4dp"
+      android:layout_marginEnd="16dp"
       android:orientation="vertical"
-      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@id/btn_join_shimmer"
       app:layout_constraintStart_toEndOf="@id/layout_user_image_shimmer_container"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toTopOf="@id/layout_user_image_shimmer_container"
       >
 
     <View
         android:id="@+id/tv_user_location_shimmer"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="15dp"
         android:layout_marginEnd="4dp"
         android:background="@drawable/shimmer_background"
@@ -49,34 +48,19 @@
 
     <View
         android:id="@+id/tv_user_title_shimmer"
-        android:layout_width="match_parent"
+        android:layout_width="100dp"
         android:layout_height="15dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/shimmer_background"
         />
 
-    <View
-        android:id="@+id/tv_user_title_continued_shimmer"
-        android:layout_width="60dp"
-        android:layout_height="15dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/shimmer_background"
-        />
-
-    <View
-        android:id="@+id/tv_user_members_count_shimmer"
-        android:layout_width="100dp"
-        android:layout_height="15dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/shimmer_background"
-        />
   </LinearLayout>
 
   <View
       android:id="@+id/btn_join_shimmer"
-      android:layout_width="86dp"
-      android:layout_height="30dp"
+      android:layout_width="32dp"
+      android:layout_height="32dp"
       android:layout_marginEnd="8dp"
       android:background="@drawable/shimmer_background"
       app:layout_constraintBottom_toBottomOf="parent"
