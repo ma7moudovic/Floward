@@ -1,6 +1,7 @@
 package com.android.floward.users.ui.list.adapter
 
 import androidx.recyclerview.widget.RecyclerView
+import com.android.floward.R
 import com.android.floward.arch.image.GlideApp
 import com.android.floward.databinding.ItemUserBinding
 import com.android.floward.users.ui.list.models.UserModel
@@ -17,7 +18,7 @@ class UserViewHolder(
     }
 
     binding.tvUserName.text = userModel.name
-    binding.tvPostCount.text = "${userModel.postsCount} posts"
+    binding.tvPostCount.text = itemView.context.getString(R.string.posts, userModel.postsCount)
 
     GlideApp.with(itemView.context.applicationContext)
       .load(userModel.thumbnailUrl)
