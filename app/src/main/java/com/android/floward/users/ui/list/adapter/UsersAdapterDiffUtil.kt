@@ -1,7 +1,7 @@
-package com.android.floward.users.ui.adapter
+package com.android.floward.users.ui.list.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.android.floward.users.ui.models.UserModel
+import com.android.floward.users.ui.list.models.UserModel
 
 /**
  * Created by shar2awy on 26/08/2022.

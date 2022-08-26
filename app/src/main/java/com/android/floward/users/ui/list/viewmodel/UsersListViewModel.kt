@@ -1,17 +1,17 @@
-package com.android.floward.users.ui.viewmodel
+package com.android.floward.users.ui.list.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.floward.posts.domain.GetPostsUseCase
 import com.android.floward.users.domain.GetUsersUseCase
-import com.android.floward.users.ui.models.UserModelMapper
+import com.android.floward.users.ui.list.models.UserModelMapper
 import io.reactivex.disposables.CompositeDisposable
 
 /**
  * Created by shar2awy on 24/08/2022.
  */
-class UserViewModel(
+class UsersListViewModel(
   private val getUsersUseCase: GetUsersUseCase,
   private val getPostsUseCase: GetPostsUseCase,
   private val mapper: UserModelMapper
@@ -21,15 +21,15 @@ class UserViewModel(
     CompositeDisposable()
   }
 
-  private val _viewState: MutableLiveData<UsersViewState> by lazy {
+  private val _viewState: MutableLiveData<UsersListViewState> by lazy {
     MutableLiveData()
   }
 
-  val viewState: LiveData<UsersViewState> = _viewState
+  val viewState: LiveData<UsersListViewState> = _viewState
 
   fun getUsers() {
     compositeDisposable.add(getUsersUseCase().doOnSubscribe {
-      _viewState.postValue(UsersViewState.Loading)
+      _viewState.postValue(UsersListViewState.Loading)
     }.zipWith(getPostsUseCase()) { users, posts ->
       val usersModels = users.map { user ->
         val postsCount = posts.filter { it.userId == user.id }.size
@@ -37,9 +37,9 @@ class UserViewModel(
       }
       usersModels
     }.subscribe({
-      _viewState.postValue(UsersViewState.Data(it))
+      _viewState.postValue(UsersListViewState.Data(it))
     }, {
-      _viewState.postValue(UsersViewState.Error.UnknownError)
+      _viewState.postValue(UsersListViewState.Error.UnknownError)
     })
     )
   }

@@ -1,11 +1,11 @@
-package com.android.floward.users.ui.adapter
+package com.android.floward.users.ui.list.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.android.floward.R
 import com.android.floward.databinding.ItemUserBinding
-import com.android.floward.users.ui.models.UserModel
+import com.android.floward.users.ui.list.models.UserModel
 
 class UsersAdapter(
   private val onUserItemClick: (UserModel) -> Unit

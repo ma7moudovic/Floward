@@ -1,26 +1,22 @@
-package com.android.floward.users.ui
+package com.android.floward.users.ui.list
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.android.floward.arch.ui.BaseActivity
 import com.android.floward.databinding.ActivityUsersBinding
-import com.android.floward.users.ui.adapter.UsersAdapter
-import com.android.floward.users.ui.models.UserModel
-import com.android.floward.users.ui.viewmodel.UserViewModel
-import com.android.floward.users.ui.viewmodel.UsersViewModelProvider
-import com.android.floward.users.ui.viewmodel.UsersViewState
-import com.android.floward.users.ui.viewmodel.UsersViewState.Data
-import com.android.floward.users.ui.viewmodel.UsersViewState.Loading
+import com.android.floward.users.ui.details.UserDetailsActivity
+import com.android.floward.users.ui.list.adapter.UsersAdapter
+import com.android.floward.users.ui.list.models.UserModel
+import com.android.floward.users.ui.list.viewmodel.UsersListViewModel
+import com.android.floward.users.ui.list.viewmodel.UsersListViewModelProvider
+import com.android.floward.users.ui.list.viewmodel.UsersListViewState
 
 class UsersActivity : BaseActivity() {
 
   private lateinit var binding: ActivityUsersBinding
 
-  lateinit var viewModel: UserViewModel
-  val adapter = UsersAdapter{
+  lateinit var viewModel: UsersListViewModel
+  val adapter = UsersAdapter {
     openUserDetails(it)
   }
 
@@ -41,18 +37,18 @@ class UsersActivity : BaseActivity() {
     viewModel.getUsers()
   }
 
-  private fun setViewState(viewState: UsersViewState) {
+  private fun setViewState(viewState: UsersListViewState) {
     when (viewState) {
-      Loading -> {
+      UsersListViewState.Loading -> {
         binding.usersLoadingView.root.visibility = View.VISIBLE
         binding.usersDataView.visibility = View.GONE
       }
-      is Data -> {
+      is UsersListViewState.Data -> {
         binding.usersLoadingView.root.visibility = View.GONE
         binding.usersDataView.visibility = View.VISIBLE
         adapter.submitList(viewState.users)
       }
-      is Error -> {}
+      is UsersListViewState.Error -> {}
     }
   }
 
@@ -61,10 +57,10 @@ class UsersActivity : BaseActivity() {
   }
 
   private fun initViewModel() {
-    viewModel = UsersViewModelProvider.provide(this)
+    viewModel = UsersListViewModelProvider.provide(this)
   }
 
   private fun openUserDetails(userModel: UserModel) {
-
+    UserDetailsActivity.start(this, userId = userModel.id)
   }
 }

@@ -1,21 +1,21 @@
-package com.android.floward.users.ui.viewmodel
+package com.android.floward.users.ui.details.viewmodel
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.android.floward.posts.domain.GetPostsUseCaseProvider
 import com.android.floward.users.domain.GetUsersUseCaseProvider
-import com.android.floward.users.ui.models.UserModelMapper
+import com.android.floward.users.ui.list.models.UserModelMapper
 
 /**
  * Created by shar2awy on 24/08/2022.
  */
-object UsersViewModelProvider {
-  fun provide(activity: AppCompatActivity): UserViewModel {
-    val factory = UsersViewModelFactory(
+object UserDetailsViewModelProvider {
+  fun provide(activity: AppCompatActivity): UserDetailsViewModel {
+    val factory = UserDetailsViewModelFactory(
       getUsersUseCase = GetUsersUseCaseProvider.provide(),
       getPostsUseCase = GetPostsUseCaseProvider.provide(),
       mapper = UserModelMapper()
     )
-    return ViewModelProvider(activity, factory)[UserViewModel::class.java]
+    return ViewModelProvider(activity, factory)[UserDetailsViewModel::class.java]
   }
 }

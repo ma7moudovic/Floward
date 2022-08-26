@@ -1,9 +1,9 @@
-package com.android.floward.users.ui.adapter
+package com.android.floward.users.ui.list.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.android.floward.arch.image.GlideApp
 import com.android.floward.databinding.ItemUserBinding
-import com.android.floward.users.ui.models.UserModel
+import com.android.floward.users.ui.list.models.UserModel
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
