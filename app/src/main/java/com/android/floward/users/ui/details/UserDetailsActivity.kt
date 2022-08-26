@@ -58,6 +58,7 @@ class UserDetailsActivity : BaseActivity() {
   }
 
   private fun initUI() {
+    binding.toolbar.setNavigationOnClickListener { onBackPressed() }
     binding.postsDataView.adapter = adapter
   }
 
